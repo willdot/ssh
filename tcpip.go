@@ -95,7 +95,8 @@ type ForwardedTCPHandler struct {
 	sync.Mutex
 }
 
-type RemoteForwardIntercept = func(clientAddr net.Addr) bool
+// TODO: need to make naming of the clientAddr and remoteAddr clearer
+type RemoteForwardIntercept = func(clientAddr, remoteAddr net.Addr) bool
 
 func (h *ForwardedTCPHandler) HandleSSHRequest(ctx Context, srv *Server, req *gossh.Request) (bool, []byte) {
 	h.Lock()
@@ -142,7 +143,7 @@ func (h *ForwardedTCPHandler) HandleSSHRequest(ctx Context, srv *Server, req *go
 					break
 				}
 
-				if h.RemoteForwardIntercept != nil && !h.RemoteForwardIntercept(c.RemoteAddr()) {
+				if h.RemoteForwardIntercept != nil && !h.RemoteForwardIntercept(c.RemoteAddr(), ctx.RemoteAddr()) {
 					log.Printf("client failed remote forward interceptor: %s", c.RemoteAddr())
 					c.Close()
 					continue
