@@ -5,8 +5,8 @@ import (
 	"io"
 	"log"
 
-	"github.com/gliderlabs/ssh"
 	"github.com/pkg/sftp"
+	"github.com/willdot/ssh"
 )
 
 // SftpHandler handler for SFTP subsystem

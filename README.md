@@ -1,10 +1,10 @@
-# gliderlabs/ssh
+# willdot/ssh
 
-[![GoDoc](https://godoc.org/github.com/gliderlabs/ssh?status.svg)](https://godoc.org/github.com/gliderlabs/ssh) 
-[![CircleCI](https://img.shields.io/circleci/project/github/gliderlabs/ssh.svg)](https://circleci.com/gh/gliderlabs/ssh)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gliderlabs/ssh)](https://goreportcard.com/report/github.com/gliderlabs/ssh) 
+[![GoDoc](https://godoc.org/github.com/willdot/ssh?status.svg)](https://godoc.org/github.com/willdot/ssh)
+[![CircleCI](https://img.shields.io/circleci/project/github/willdot/ssh.svg)](https://circleci.com/gh/willdot/ssh)
+[![Go Report Card](https://goreportcard.com/badge/github.com/willdot/ssh)](https://goreportcard.com/report/github.com/willdot/ssh)
 [![OpenCollective](https://opencollective.com/ssh/sponsors/badge.svg)](#sponsors)
-[![Slack](http://slack.gliderlabs.com/badge.svg)](http://slack.gliderlabs.com) 
+[![Slack](http://slack.willdot.com/badge.svg)](http://slack.willdot.com)
 [![Email Updates](https://img.shields.io/badge/updates-subscribe-yellow.svg)](https://app.convertkit.com/landing_pages/243312)
 
 > The Glider Labs SSH server package is dope.  &mdash;[@bradfitz](https://twitter.com/bradfitz), Go team member
@@ -18,7 +18,7 @@ building SSH servers. The goal of the API was to make it as simple as using
  package main
 
  import (
-     "github.com/gliderlabs/ssh"
+     "github.com/willdot/ssh"
      "io"
      "log"
  )
@@ -26,7 +26,7 @@ building SSH servers. The goal of the API was to make it as simple as using
  func main() {
      ssh.Handle(func(s ssh.Session) {
          io.WriteString(s, "Hello world\n")
-     })  
+     })
 
      log.Fatal(ssh.ListenAndServe(":2222", nil))
  }
@@ -40,14 +40,14 @@ A bunch of great examples are in the `_examples` directory.
 
 ## Usage
 
-[See GoDoc reference.](https://godoc.org/github.com/gliderlabs/ssh)
+[See GoDoc reference.](https://godoc.org/github.com/willdot/ssh)
 
 ## Contributing
 
 Pull requests are welcome! However, since this project is very much about API
 design, please submit API changes as issues to discuss before submitting PRs.
 
-Also, you can [join our Slack](http://slack.gliderlabs.com) to discuss as well.
+Also, you can [join our Slack](http://slack.willdot.com) to discuss as well.
 
 ## Roadmap
 
