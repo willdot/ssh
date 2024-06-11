@@ -90,9 +90,12 @@ type remoteForwardChannelData struct {
 // adding the HandleSSHRequest callback to the server's RequestHandlers under
 // tcpip-forward and cancel-tcpip-forward.
 type ForwardedTCPHandler struct {
-	forwards map[string]net.Listener
+	RemoteForwardIntercept RemoteForwardIntercept
+	forwards               map[string]net.Listener
 	sync.Mutex
 }
+
+type RemoteForwardIntercept = func(clientAddr net.Addr) bool
 
 func (h *ForwardedTCPHandler) HandleSSHRequest(ctx Context, srv *Server, req *gossh.Request) (bool, []byte) {
 	h.Lock()
@@ -138,6 +141,12 @@ func (h *ForwardedTCPHandler) HandleSSHRequest(ctx Context, srv *Server, req *go
 					// TODO: log accept failure
 					break
 				}
+
+				if h.RemoteForwardIntercept != nil && !h.RemoteForwardIntercept(c.RemoteAddr()) {
+					log.Printf("client failed remote forward interceptor: %s", c.RemoteAddr())
+					break
+				}
+
 				originAddr, orignPortStr, _ := net.SplitHostPort(c.RemoteAddr().String())
 				originPort, _ := strconv.Atoi(orignPortStr)
 				payload := gossh.Marshal(&remoteForwardChannelData{
