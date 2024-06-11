@@ -145,7 +145,7 @@ func (h *ForwardedTCPHandler) HandleSSHRequest(ctx Context, srv *Server, req *go
 				if h.RemoteForwardIntercept != nil && !h.RemoteForwardIntercept(c.RemoteAddr()) {
 					log.Printf("client failed remote forward interceptor: %s", c.RemoteAddr())
 					c.Close()
-					break
+					continue
 				}
 
 				originAddr, orignPortStr, _ := net.SplitHostPort(c.RemoteAddr().String())
